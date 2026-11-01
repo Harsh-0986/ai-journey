@@ -702,9 +702,9 @@ day-01/
 Your repository should contain:
 
 - [ ] Linear algebra notebook.
-- [ ] Manual vector operations.
-- [ ] Manual matrix multiplication.
-- [ ] Manual dot product.
+- [x] Manual vector operations.
+- [x] Manual matrix multiplication.
+- [x] Manual dot product.
 - [ ] Linear Regression implementation.
 - [ ] Analytical gradient calculations.
 - [ ] Training loss visualization.
@@ -767,10 +767,10 @@ Answer these questions in `notes/concepts.md`.
 
 Mark Day 1 complete only when:
 
-- [ ] You can explain vectors and matrices without referring to notes.
-- [ ] You can manually calculate a dot product.
-- [ ] You understand matrix multiplication.
-- [ ] You understand the Linear Regression equation.
+- [x] You can explain vectors and matrices without referring to notes.
+- [x] You can manually calculate a dot product.
+- [x] You understand matrix multiplication.
+- [x] You understand the Linear Regression equation.
 - [ ] You can derive the gradients for MSE.
 - [ ] You have implemented Gradient Descent yourself.
 - [ ] Your model successfully trains.
