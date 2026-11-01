@@ -2,32 +2,32 @@
 # Day 01 — Mathematical Foundations of Machine Learning
 
 > 90 Days of Machine Learning, Deep Learning & AI  
-> Phase 1: ML Foundations  
+> Phase 1: Machine Learning Foundations  
 > Duration: 3 Hours  
 > Difficulty: Intermediate
 
 ---
 
-# 1. Objective
+# 1. Learning Objectives
 
-Today's goal is to understand the mathematical foundations behind Machine Learning and implement your first ML algorithm without using Scikit-learn.
+Today's goal is to understand the mathematical foundations behind Machine Learning and implement your first ML algorithm without relying on Scikit-learn.
 
 By the end of today, you should be able to:
 
 - Understand scalars, vectors and matrices.
 - Perform vector and matrix operations using NumPy.
-- Understand the intuition behind Linear Regression.
+- Understand the mathematics behind Linear Regression.
 - Understand weights, bias and predictions.
 - Understand loss functions and Mean Squared Error.
-- Understand gradients and Gradient Descent.
-- Implement Linear Regression from scratch.
+- Understand derivatives and gradients.
+- Implement Gradient Descent from scratch.
 - Visualize how a model learns.
 
-**Today's main project:** Linear Regression From Scratch.
+**Main project:** Linear Regression From Scratch.
 
 ---
 
-# 2. Schedule
+# 2. Daily Schedule
 
 | Task | Duration |
 |---|---:|
@@ -47,7 +47,7 @@ By the end of today, you should be able to:
 
 Linear Algebra is one of the most important mathematical foundations of Machine Learning.
 
-A neural network, for example, performs numerous matrix multiplications to transform input data into predictions.
+Neural networks, regression models and almost every modern ML architecture use vectors and matrices to represent and process data.
 
 ## 3.1 Scalars
 
@@ -65,13 +65,13 @@ temperature = 32.5
 
 A vector is an ordered collection of numerical values.
 
-Example:
+For example:
 
-\[
-v = [1,2,3]
-\]
+$$
+v = \begin{bmatrix}1\\2\\3\end{bmatrix}
+$$
 
-In ML, vectors can represent features of a single observation.
+In Machine Learning, a vector can represent the features of a single observation.
 
 ```python
 import numpy as np
@@ -82,7 +82,7 @@ print(v.shape)
 print(v.ndim)
 ```
 
-### Understand
+Understand:
 
 - What is a vector?
 - What is its dimension?
@@ -93,17 +93,18 @@ print(v.ndim)
 
 A matrix is a two-dimensional arrangement of numbers.
 
-\[
+$$
 A =
 \begin{bmatrix}
 1 & 2\\
 3 & 4
 \end{bmatrix}
-\]
+$$
 
 In ML, a dataset is commonly represented as a matrix.
 
-Rows represent observations and columns represent features.
+- Rows represent observations.
+- Columns represent features.
 
 ```python
 A = np.array([
@@ -125,17 +126,24 @@ Understand:
 
 ## 3.4 Dot Product
 
-The dot product combines corresponding elements of two vectors and sums their products.
+The dot product multiplies corresponding elements of two vectors and sums the results.
 
-\[
+$$
 A \cdot B = \sum_{i=1}^{n} A_iB_i
-\]
+$$
 
 Example:
 
-\[
-[1,2,3]\cdot[4,5,6]=32
-\]
+$$
+\begin{aligned}
+A &= [1,2,3]\\
+B &= [4,5,6]
+\end{aligned}
+$$
+
+$$
+A \cdot B = 1(4)+2(5)+3(6)=32
+$$
 
 Implementation:
 
@@ -144,17 +152,78 @@ a = np.array([1, 2, 3])
 b = np.array([4, 5, 6])
 
 result = np.dot(a, b)
+print(result)
 ```
 
-### Important
+### Why is this important?
 
-Understand why dot products are useful for calculating predictions in linear models.
+A linear model with multiple features uses the dot product to calculate predictions:
 
-## Learning Resources
+$$
+\hat{y} = \mathbf{w}^T\mathbf{x}+b
+$$
 
-1. https://www.3blue1brown.com/topics/linear-algebra
-2. https://numpy.org/doc/stable/user/quickstart.html
-3. https://mml-book.github.io/
+Understand how this connects Linear Algebra with Machine Learning.
+
+## 3.5 Matrix Multiplication
+
+For two matrices:
+
+$$
+A_{m \times n} \cdot B_{n \times p}
+$$
+
+The resulting matrix has dimensions:
+
+$$
+C_{m \times p}
+$$
+
+Example:
+
+$$
+A =
+\begin{bmatrix}
+1 & 2\\
+3 & 4
+\end{bmatrix}
+$$
+
+$$
+B =
+\begin{bmatrix}
+5 & 6\\
+7 & 8
+\end{bmatrix}
+$$
+
+$$
+AB =
+\begin{bmatrix}
+19 & 22\\
+43 & 50
+\end{bmatrix}
+$$
+
+## 3.6 Matrix Transpose
+
+Transpose swaps rows and columns.
+
+$$
+A =
+\begin{bmatrix}
+1 & 2\\
+3 & 4
+\end{bmatrix}
+$$
+
+$$
+A^T =
+\begin{bmatrix}
+1 & 3\\
+2 & 4
+\end{bmatrix}
+$$
 
 ---
 
@@ -170,9 +239,7 @@ Implement the following operations WITHOUT using NumPy's built-in operation for 
 
 You may use NumPy to create arrays and verify your results.
 
-## Exercises
-
-### Exercise 1: Vector Addition
+## Exercise 1: Vector Addition
 
 Given:
 
@@ -183,21 +250,27 @@ b = np.array([4, 5, 6])
 
 Implement vector addition manually.
 
-Hint: Add corresponding elements.
+**Hint:** Add corresponding elements using a loop.
 
-### Exercise 2: Dot Product
+Expected result:
+
+```text
+[5, 7, 9]
+```
+
+## Exercise 2: Dot Product
 
 Implement the dot product using a loop.
 
-Hint:
+**Hint:**
 
-\[
-result = \sum_i a_i b_i
-\]
+$$
+result = \sum_{i=1}^{n}a_ib_i
+$$
 
-Verify using `np.dot()`.
+Verify your implementation using `np.dot()`.
 
-### Exercise 3: Matrix Multiplication
+## Exercise 3: Matrix Multiplication
 
 Given:
 
@@ -215,32 +288,37 @@ B = np.array([
 
 Implement matrix multiplication manually.
 
-Hint:
+**Hints:**
 
-- Select a row from A.
-- Select a column from B.
-- Calculate their dot product.
-- Store the result.
+1. Select a row from A.
+2. Select a column from B.
+3. Calculate their dot product.
+4. Store the result in the output matrix.
 
-### Exercise 4: Matrix Transpose
+Do not use `np.matmul()` or the `@` operator in your implementation.
+
+## Exercise 4: Matrix Transpose
 
 Implement matrix transpose manually.
 
-Hint: Rows become columns and columns become rows.
+**Hint:** Rows become columns and columns become rows.
 
-### Exercise 5: Shape Compatibility
+Verify your result using `.T`.
+
+## Exercise 5: Shape Compatibility
 
 Experiment with multiplying matrices of different shapes.
 
 Answer:
 
-- Why can a (2, 3) matrix multiply a (3, 2) matrix?
-- Why can't a (2, 3) matrix multiply a (2, 3) matrix?
-- What determines the shape of the output?
+1. Why can a $(2,3)$ matrix multiply a $(3,2)$ matrix?
+2. Why can't a $(2,3)$ matrix multiply a $(2,3)$ matrix?
+3. What determines the output dimensions?
+4. What is the difference between matrix multiplication and element-wise multiplication?
 
 ---
 
-# 5. Task 3 — Understand Linear Regression
+# 5. Task 3 — Understanding Linear Regression
 
 **Duration:** 30 minutes
 
@@ -270,86 +348,107 @@ This is a supervised learning problem.
 - Target: Examination score.
 - Model: Linear Regression.
 
-## 5.1 Model Equation
+## 5.1 Understanding the Model
 
 A linear regression model is represented as:
 
-\[
-\hat{y} = wx+b
-\]
+$$
+\hat{y}=wx+b
+$$
 
 Where:
 
-- \(x\): Input feature.
-- \(\hat y\): Predicted output.
-- \(w\): Weight or slope.
-- \(b\): Bias or intercept.
+- $x$: Input feature.
+- $\hat{y}$: Predicted output.
+- $w$: Weight or slope.
+- $b$: Bias or intercept.
 
-The model needs to learn the appropriate values of \(w\) and \(b\).
+The model needs to learn appropriate values of $w$ and $b$.
 
-## 5.2 Loss Function
+### Your task
 
-A prediction will generally differ from the actual value.
+Understand the effect of changing the parameters.
+
+Try:
+
+$$
+\hat{y}=10x+5
+$$
+
+Then try:
+
+$$
+\hat{y}=5x+10
+$$
+
+Observe how changing the weight and bias changes the regression line.
+
+## 5.2 Understanding the Loss Function
+
+A prediction generally differs from the actual value.
 
 We need a way to measure this difference.
 
-Use Mean Squared Error:
+Use Mean Squared Error (MSE):
 
-\[
-MSE = \frac{1}{n}\sum_{i=1}^{n}(\hat y_i-y_i)^2
-\]
+$$
+J(w,b)=\frac{1}{n}\sum_{i=1}^{n}
+(\hat{y}_i-y_i)^2
+$$
 
 Where:
 
-- \(n\): Number of observations.
-- \(\hat y_i\): Predicted value.
-- \(y_i\): Actual value.
+- $n$: Number of observations.
+- $\hat{y}_i$: Predicted value.
+- $y_i$: Actual value.
 
 The objective is to minimize MSE.
 
-### Think About
+### Understand
 
 1. Why do we square the error?
 2. Why do we calculate the average?
 3. What happens when the prediction is perfect?
 4. Why is MSE sensitive to large errors?
 
-## 5.3 Gradient Descent
+## 5.3 Understanding Gradient Descent
 
 Gradient Descent is an optimization algorithm that updates model parameters to minimize the loss.
 
 Weight update:
 
-\[
-w := w-\alpha\frac{\partial J}{\partial w}
-\]
+$$
+w \leftarrow w-\alpha\frac{\partial J}{\partial w}
+$$
 
 Bias update:
 
-\[
-b := b-\alpha\frac{\partial J}{\partial b}
-\]
+$$
+b \leftarrow b-\alpha\frac{\partial J}{\partial b}
+$$
 
 Where:
 
-- \(\alpha\): Learning rate.
-- \(J\): Loss function.
-- \(\partial J/\partial w\): Weight gradient.
-- \(\partial J/\partial b\): Bias gradient.
+- $\alpha$: Learning rate.
+- $J$: Loss function.
+- $\partial J/\partial w$: Weight gradient.
+- $\partial J/\partial b$: Bias gradient.
 
-For linear regression with MSE:
+For Linear Regression with MSE:
 
-\[
+$$
 \frac{\partial J}{\partial w}
 =
-\frac{2}{n}\sum_{i=1}^{n}(\hat y_i-y_i)x_i
-\]
+\frac{2}{n}\sum_{i=1}^{n}
+(\hat{y}_i-y_i)x_i
+$$
 
-\[
+$$
 \frac{\partial J}{\partial b}
 =
-\frac{2}{n}\sum_{i=1}^{n}(\hat y_i-y_i)
-\]
+\frac{2}{n}\sum_{i=1}^{n}
+(\hat{y}_i-y_i)
+$$
 
 ### Understand
 
@@ -358,6 +457,8 @@ For linear regression with MSE:
 - Why do we subtract the gradient?
 - What is the learning rate?
 - What is convergence?
+
+**Important:** Understand where these derivatives come from. Don't just memorize the formulas.
 
 ---
 
@@ -371,7 +472,7 @@ Create:
 
 ## Requirements
 
-You must implement the following yourself:
+Implement the following yourself:
 
 1. Dataset initialization.
 2. Parameter initialization.
@@ -381,6 +482,8 @@ You must implement the following yourself:
 6. Parameter updates.
 7. Training loop.
 8. Prediction function.
+
+### Restrictions
 
 You are allowed to use:
 
@@ -404,19 +507,20 @@ Start with:
 ```python
 w = 0.0
 b = 0.0
+
 learning_rate = 0.01
 epochs = 1000
 ```
 
 ### Hint 2: Forward propagation
 
-Use the model equation:
+Use:
 
-\[
-\hat y = wx+b
-\]
+$$
+\hat{y}=wx+b
+$$
 
-Your predictions should be calculated for every training observation.
+Calculate predictions for every training observation.
 
 ### Hint 3: Calculate loss
 
@@ -426,7 +530,7 @@ Calculate the Mean Squared Error between predictions and actual values.
 
 Use the mathematical equations from Section 5.3.
 
-Do not use numerical approximations for gradients. Implement the analytical derivatives.
+Do not use numerical approximations for gradients. Implement analytical derivatives.
 
 ### Hint 5: Update parameters
 
@@ -434,9 +538,13 @@ Update both weight and bias using Gradient Descent.
 
 ### Hint 6: Training loop
 
-Repeat forward propagation, loss calculation, gradient calculation and parameter updates for every epoch.
+Repeat the following for every epoch:
 
-Store the loss after every epoch.
+1. Forward propagation.
+2. Calculate loss.
+3. Calculate gradients.
+4. Update parameters.
+5. Store the loss.
 
 ### Hint 7: Prediction
 
@@ -449,6 +557,15 @@ def predict(x):
 ```
 
 Use it to predict the score for a student who studies for 8 hours.
+
+### Hint 8: Verify your implementation
+
+Check that:
+
+- Your parameters change during training.
+- Your loss decreases.
+- Your predictions are reasonable.
+- Your model does not produce NaN or infinite values.
 
 ---
 
@@ -472,12 +589,13 @@ Questions:
 1. Does the loss decrease?
 2. Does it eventually stabilize?
 3. What does convergence mean?
+4. What happens if the loss increases continuously?
 
 ## Experiment B: Actual vs Predicted
 
 Create a scatter plot of actual data points and overlay the regression line.
 
-Observe whether the learned line captures the relationship between study hours and exam scores.
+Observe whether the learned line captures the relationship between study hours and examination scores.
 
 ## Experiment C: Learning Rate
 
@@ -501,13 +619,11 @@ Do not assume that a higher learning rate always results in faster convergence.
 
 ---
 
-# 8. Challenge — Extend Your Model
+# 8. Optional Challenge — Multiple Linear Regression
 
-**Optional but recommended**
+Extend your model to support multiple input features.
 
-Implement Multiple Linear Regression.
-
-Instead of predicting examination scores using only study hours, use multiple features:
+Instead of predicting examination scores using only study hours, use:
 
 - Hours studied.
 - Hours slept.
@@ -515,21 +631,40 @@ Instead of predicting examination scores using only study hours, use multiple fe
 
 The model becomes:
 
-\[
-\hat y = Xw+b
-\]
+$$
+\hat{y}=Xw+b
+$$
 
 Where:
 
-- \(X\): Feature matrix.
-- \(w\): Weight vector.
-- \(b\): Bias.
+- $X$: Feature matrix.
+- $w$: Weight vector.
+- $b$: Bias.
 
-Hint:
+For the MSE loss:
 
-Use matrix multiplication instead of individual scalar multiplication.
+$$
+J(w,b)=\frac{1}{n}\|Xw+b-y\|_2^2
+$$
 
-For the gradient calculations, derive the gradients with respect to the weight vector and bias.
+The gradients become:
+
+$$
+\nabla_w J=\frac{2}{n}X^T(Xw+b-y)
+$$
+
+$$
+\frac{\partial J}{\partial b}
+=\frac{2}{n}\sum_{i=1}^{n}(\hat{y}_i-y_i)
+$$
+
+### Hints
+
+1. Represent the dataset as a matrix.
+2. Represent weights as a vector.
+3. Use matrix multiplication for predictions.
+4. Derive the gradients with respect to the weight vector.
+5. Update all weights simultaneously.
 
 This will prepare you for understanding how neural networks process batches of data.
 
@@ -596,14 +731,14 @@ git push
 
 Answer these questions in `notes/concepts.md`.
 
-### Linear Algebra
+## Linear Algebra
 
 1. What is the difference between a scalar, vector and matrix?
 2. Explain the dot product geometrically and mathematically.
 3. Why must matrix dimensions be compatible for multiplication?
 4. What is the difference between matrix multiplication and element-wise multiplication?
 
-### Machine Learning
+## Machine Learning
 
 5. What is supervised learning?
 6. What does the weight represent in Linear Regression?
@@ -611,7 +746,7 @@ Answer these questions in `notes/concepts.md`.
 8. Why do we need a loss function?
 9. Why does MSE square the errors?
 
-### Optimization
+## Optimization
 
 10. What is a gradient?
 11. Explain Gradient Descent in your own words.
@@ -620,7 +755,7 @@ Answer these questions in `notes/concepts.md`.
 14. What does convergence mean?
 15. Why do we update weights and bias separately?
 
-### Implementation
+## Implementation
 
 16. Why do we store loss after every epoch?
 17. Why should we separate training and prediction functions?
@@ -630,7 +765,7 @@ Answer these questions in `notes/concepts.md`.
 
 # 12. Completion Criteria
 
-You can mark Day 1 complete only when:
+Mark Day 1 complete only when:
 
 - [ ] You can explain vectors and matrices without referring to notes.
 - [ ] You can manually calculate a dot product.
@@ -648,7 +783,7 @@ You can mark Day 1 complete only when:
 
 # 13. References and Learning Resources
 
-### Mathematics
+## Mathematics
 
 - 3Blue1Brown — Essence of Linear Algebra:
   https://www.3blue1brown.com/topics/linear-algebra
@@ -656,7 +791,7 @@ You can mark Day 1 complete only when:
 - Mathematics for Machine Learning:
   https://mml-book.github.io/
 
-### NumPy
+## NumPy
 
 - NumPy Quickstart:
   https://numpy.org/doc/stable/user/quickstart.html
@@ -664,7 +799,7 @@ You can mark Day 1 complete only when:
 - NumPy Documentation:
   https://numpy.org/doc/
 
-### Machine Learning
+## Machine Learning
 
 - Stanford CS229:
   https://cs229.stanford.edu/
@@ -684,13 +819,14 @@ At the end of Day 1, you should have:
 4. Visual evidence of your model learning.
 5. A documented GitHub contribution.
 
-**Remember:** The objective is not simply to get the correct predictions. It is to understand exactly how the model learns to produce them.
+**Remember:** The objective is not simply to get correct predictions. It is to understand exactly how the model learns to produce them.
 
 ---
 
-**NEXT DAY: DAY 02 — Probability, Statistics and Data Distributions**
+# Next: Day 02 — Probability, Statistics and Data Distributions
 
 Topics:
+
 - Probability fundamentals.
 - Conditional probability.
 - Bayes' theorem.
