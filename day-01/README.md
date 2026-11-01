@@ -1,0 +1,710 @@
+emperature = 32.5
+
+````
+
+## 3.2 Vectors
+
+A vector is an ordered collection of numerical values.
+
+Example:
+
+\[
+v = [1,2,3]
+\]
+
+In ML, vectors can represent features of a single observation.
+
+```python
+import numpy as np
+
+v = np.array([1, 2, 3])
+
+print(v.shape)
+print(v.ndim)
+````
+
+### Understand
+
+- What is a vector?
+- What is its dimension?
+- What is the difference between a row vector and column vector?
+- How do vector addition and scalar multiplication work?
+
+## 3.3 Matrices
+
+A matrix is a two-dimensional arrangement of numbers.
+
+\[
+A =
+\begin{bmatrix}
+1 & 2\\
+3 & 4
+\end{bmatrix}
+\]
+
+In ML, a dataset is commonly represented as a matrix.
+
+Rows represent observations and columns represent features.
+
+```python
+A = np.array([
+    [1, 2],
+    [3, 4]
+])
+
+print(A.shape)
+print(A.ndim)
+```
+
+Understand:
+
+- Matrix dimensions.
+- Matrix addition.
+- Matrix multiplication.
+- Matrix transpose.
+- Identity matrix.
+
+## 3.4 Dot Product
+
+The dot product combines corresponding elements of two vectors and sums their products.
+
+\[
+A \cdot B = \sum_{i=1}^{n} A_iB_i
+\]
+
+Example:
+
+\[
+[1,2,3]\cdot[4,5,6]=32
+\]
+
+Implementation:
+
+```python
+a = np.array([1, 2, 3])
+b = np.array([4, 5, 6])
+
+result = np.dot(a, b)
+```
+
+### Important
+
+Understand why dot products are useful for calculating predictions in linear models.
+
+## Learning Resources
+
+1. https://www.3blue1brown.com/topics/linear-algebra
+2. https://numpy.org/doc/stable/user/quickstart.html
+3. https://mml-book.github.io/
+
+---
+
+# 4. Task 2 — NumPy Implementation
+
+**Duration:** 30 minutes
+
+Create:
+
+`linear_algebra.ipynb`
+
+Implement the following operations WITHOUT using NumPy's built-in operation for the actual calculation.
+
+You may use NumPy to create arrays and verify your results.
+
+## Exercises
+
+### Exercise 1: Vector Addition
+
+Given:
+
+```python
+a = np.array([1, 2, 3])
+b = np.array([4, 5, 6])
+```
+
+Implement vector addition manually.
+
+Hint: Add corresponding elements.
+
+### Exercise 2: Dot Product
+
+Implement the dot product using a loop.
+
+Hint:
+
+\[
+result = \sum_i a_i b_i
+\]
+
+Verify using `np.dot()`.
+
+### Exercise 3: Matrix Multiplication
+
+Given:
+
+```python
+A = np.array([
+    [1, 2],
+    [3, 4]
+])
+
+B = np.array([
+    [5, 6],
+    [7, 8]
+])
+```
+
+Implement matrix multiplication manually.
+
+Hint:
+
+- Select a row from A.
+- Select a column from B.
+- Calculate their dot product.
+- Store the result.
+
+### Exercise 4: Matrix Transpose
+
+Implement matrix transpose manually.
+
+Hint: Rows become columns and columns become rows.
+
+### Exercise 5: Shape Compatibility
+
+Experiment with multiplying matrices of different shapes.
+
+Answer:
+
+- Why can a (2, 3) matrix multiply a (3, 2) matrix?
+- Why can't a (2, 3) matrix multiply a (2, 3) matrix?
+- What determines the shape of the output?
+
+---
+
+# 5. Task 3 — Understand Linear Regression
+
+**Duration:** 30 minutes
+
+Now that you understand vectors and matrices, let's build your first ML model.
+
+## Problem Statement
+
+You have data about students and their examination scores.
+
+Your task is to predict examination scores based on study hours.
+
+### Dataset
+
+| Study Hours | Exam Score |
+| ----------: | ---------: |
+|           1 |         20 |
+|           2 |         30 |
+|           3 |         45 |
+|           4 |         50 |
+|           5 |         65 |
+|           6 |         75 |
+|           7 |         85 |
+
+This is a supervised learning problem.
+
+- Input: Study hours.
+- Target: Examination score.
+- Model: Linear Regression.
+
+## 5.1 Model Equation
+
+A linear regression model is represented as:
+
+\[
+\hat{y} = wx+b
+\]
+
+Where:
+
+- \(x\): Input feature.
+- \(\hat y\): Predicted output.
+- \(w\): Weight or slope.
+- \(b\): Bias or intercept.
+
+The model needs to learn the appropriate values of \(w\) and \(b\).
+
+## 5.2 Loss Function
+
+A prediction will generally differ from the actual value.
+
+We need a way to measure this difference.
+
+Use Mean Squared Error:
+
+\[
+MSE = \frac{1}{n}\sum_{i=1}^{n}(\hat y_i-y_i)^2
+\]
+
+Where:
+
+- \(n\): Number of observations.
+- \(\hat y_i\): Predicted value.
+- \(y_i\): Actual value.
+
+The objective is to minimize MSE.
+
+### Think About
+
+1. Why do we square the error?
+2. Why do we calculate the average?
+3. What happens when the prediction is perfect?
+4. Why is MSE sensitive to large errors?
+
+## 5.3 Gradient Descent
+
+Gradient Descent is an optimization algorithm that updates model parameters to minimize the loss.
+
+Weight update:
+
+\[
+w := w-\alpha\frac{\partial J}{\partial w}
+\]
+
+Bias update:
+
+\[
+b := b-\alpha\frac{\partial J}{\partial b}
+\]
+
+Where:
+
+-rtial J}{\partial b}
+=
+
+\frac{2}{n}\sum_{i=1}^{n}(\hat y_i-y_i)
+\]
+
+### Understand
+
+- What is a gradient?
+- Why do we need derivatives?
+- Why do we subtract the gradient?
+- What is the learning rate?
+- What is convergence?
+
+---
+
+# 6. Task 4 — Implement Linear Regression From Scratch
+
+**Duration:** 45 minutes
+
+## Implementation Hints
+
+### Hint 1: Initialize parameters
+
+Start with:
+
+````python
+w = 0.0
+b = 0.0
+lvery epoch.
+
+Store the loss after every epoch.
+
+### Hint 7: Prediction
+
+Create a reusable function:
+
+```python
+def predict(x):
+    # Return the model prediction
+    pass
+`s and exam scores.
+
+## Experiment C: Learning Rate
+
+Run the model with different learning rates.
+
+| Experiment | Learning Rate |
+|---|---:|
+| A | 0.0001 |
+| B | 0.001 |
+| C | 0.01 |
+| D | 0.1 |
+
+Record:
+
+- Final loss.
+- Number of epochs.
+- Convergence behavior.
+- Whether training diverges.
+
+Do not assume that a higher learning rate always results in faster convergence.
+
+---
+
+# 8. Challenge — Extend Your Model
+
+**Optional but recommended**
+
+Implement Multiple Linear Regression.
+
+Instead of predicting examination scores using only study hours, use multiple features:
+
+- Hours studied.
+- Hours slept.
+- Attendance percentage.
+ lication instead of individual scalar multiplication.
+
+For the gradient calculations, derive the gradients with respect to the weight vector and bias.
+
+This will prepare you for understanding how neural networks process batches of data.
+
+---
+
+# 9. Project Structure
+
+Your final Day 1 folder should look like this:
+
+` [ ] Linear Regression implementation.
+- [ ] Analytical gradient calculations.
+-e multiplication?
+ :
+ mml-book.github.io/
+
+### NumPy
+  02 — Probability, Statistics and Data Distributions**
+
+Topics:
+- Probability fundamentals.
+- Conditional probability.
+- Bayes' theorem.
+- Random variables.
+- Probability distributions.
+- Expected value and variance.
+- Covariance and correlation.
+- Statistical foundations for Machine Learning.
+
+- NumPy Quickstart:
+  https://numpy.org/doc/stable/user/quickstart.html
+
+- NumPy Documentation:
+  https://numpy.org/doc/
+
+### Machine Learning
+
+- Stanford CS229:
+  https://cs229.stanford.edu/
+
+- An Introduction to Statistical Learning:
+  https://www.statlearning.com/
+
+---
+
+# 14. Expected Outcome
+
+At the end of Day 1, you should have:
+
+1. A working Linear Regression implementation.
+2. A basic understanding of Linear Algebra.
+3. An understanding of how Gradient Descent optimizes parameters.
+4. Visual evidence of your model learning.
+5. A documented GitHub contribution.
+
+**Remember:** The objective is not simply to get the correct predictions. It is to understand exactly how the model learns to produce them.
+
+---
+
+**NEXT DAY: DAY
+- [ ] You can explain vectors and matrices without referring to notes.
+- [ ] You can manually calculate a dot product.
+- [ ] You understand matrix multiplication.
+- [ ] You understand the Linear Regression equation.
+- [ ] You can derive the gradients for MSE.
+- [ ] You have implemented Gradient Descent yourself.
+- [ ] Your model successfully trains.
+- [ ] Your loss curve demonstrates learning.
+- [ ] You have experimented with at least three learning rates.
+- [ ] You have answered all knowledge-check questions.
+- [ ] You have pushed your work to GitHub.
+
+---
+
+# 13. References and Learning Resources
+
+### Mathematics
+
+- 3Blue1Brown — Essence of Linear Algebra:
+  https://www.3blue1brown.com/topics/linear-algebra
+
+- Mathematics for Machine Learning:
+  https://
+### Machine Learning
+
+5. What is supervised learning?
+6. What does the weight represent in Linear Regression?
+7. What is the role of bias?
+8. Why do we need a loss function?
+9. Why does MSE square the errors?
+
+### Optimization
+
+10. What is a gradient?
+11. Explain Gradient Descent in your own words.
+12. What happens when the learning rate is too high?
+13. What happens when the learning rate is too low?
+14. What does convergence mean?
+15. Why do we update weights and bias separately?
+
+### Implementation
+
+16. Why do we store loss after every epoch?
+17. Why should we separate training and prediction functions?
+18. How would you extend the model to support multiple features?
+
+---
+
+# 12. Completion Criteria
+
+You can mark Day 1 complete only when [ ] Training loss visualization.
+- [ ] Actual vs predicted visualization.
+- [ ] Learning rate experiments.
+- [ ] Mathematical explanations.
+- [ ] Completed knowledge check.
+
+Suggested repository name:
+
+`ai-journey`
+
+Suggested commit:
+
+```bash
+git add .
+git commit -m "day 01: implement linear regression from scratch"
+git push
+````
+
+---
+
+# 11. Knowledge Check
+
+Answer these questions in `notes/concepts.md`.
+
+### Linear Algebra
+
+1. What is the difference between a scalar, vector and matrix?
+2. Explain the dot product geometrically and mathematically.
+3. Why must matrix dimensions be compatible for multiplication?
+4. What is the difference between matrix multiplication and element-wis``text
+   day-01/
+   │
+   ├── README.md
+   │
+   ├── linear_algebra.ipynb
+   │
+   ├── linear_regression.py
+   │
+   ├── experiments/
+   │ ├── learning_rates.py
+   │ └── multiple_regression.py
+   │
+   ├── outputs/
+   │ ├── loss_curve.png
+   │ └── predictions.png
+   │
+   └── notes/
+   └── concepts.md
+
+```
+
+---
+
+# 10. GitHub Deliverables
+
+Your repository should contain:
+
+- [ ] Linear algebra notebook.
+- [ ] Manual vector operations.
+- [ ] Manual matrix multiplication.
+- [ ] Manual dot product.
+-
+The model becomes:
+
+\[
+\hat y = Xw+b
+\]
+
+Where:
+
+- \(X\): Feature matrix.
+- \(w\): Weight vector.
+- \(b\): Bias.
+
+Hint:
+
+Use matrix multip``
+
+Use it to predict the score for a student who studies for 8 hours.
+
+---
+
+# 7. Task 5 — Experiments and Visualization
+
+**Duration:** 15 minutes
+
+Create two visualizations.
+
+## Experiment A: Training Loss
+
+Plot:
+
+- X-axis: Epoch.
+- Y-axis: MSE Loss.
+
+Observe how the loss changes during training.
+
+Questions:
+
+1. Does the loss decrease?
+2. Does it eventually stabilize?
+3. What does convergence mean?
+
+## Experiment B: Actual vs Predicted
+
+Create a scatter plot of actual data points and overlay the regression line.
+
+Observe whether the learned line captures the relationship between study hourearning_rate = 0.01
+epochs = 1000
+```
+
+### Hint 2: Forward propagation
+
+Use the model equation:
+
+\[
+\hat y = wx+b
+\]
+
+Your predictions should be calculated for every training observation.
+
+### Hint 3: Calculate loss
+
+Calculate the Mean Squared Error between predictions and actual values.
+
+### Hint 4: Calculate gradients
+
+Use the mathematical equations from Section 5.3.
+
+Do not use numerical approximations for gradients. Implement the analytical derivatives.
+
+### Hint 5: Update parameters
+
+Update both weight and bias using Gradient Descent.
+
+### Hint 6: Training loop
+
+Repeat forward propagation, loss calculation, gradient calculation and parameter updates for e
+Create:
+
+`linear_regression.py`
+
+## Requirements
+
+You must implement the following yourself:
+
+1. Dataset initialization.
+2. Parameter initialization.
+3. Forward propagation.
+4. Loss calculation.
+5. Gradient calculation.
+6. Parameter updates.
+7. Training loop.
+8. Prediction function.
+
+You are allowed to use:
+
+- Python
+- NumPy
+- Matplotlib
+
+You are NOT allowed to use:
+
+- Scikit-learn.
+- TensorFlow.
+- PyTorch.
+- Existing Linear Regression implementations.
+
+\(\alpha\): Learning rate.
+
+- \(J\): Loss function.
+- \(\partial J/\partial w\): Weight gradient.
+- \(\partial J/\partial b\): Bias gradient.
+
+For linear regression with MSE:
+
+\[
+\frac{\partial J}{\partial w}
+=
+
+\frac{2}{n}\sum_{i=1}^{n}(\hat y_i-y_i)x_i
+\]
+
+\[
+\frac{\pa
+
+# Day 01 — Mathematical Foundations of Machine Learning
+
+> 90 Days of Machine Learning, Deep Learning & AI  
+> Phase 1: ML Foundations  
+> Duration: 3 Hours  
+> Difficulty: Intermediate
+
+---
+
+# 1. Objective
+
+Today's goal is to understand the mathematical foundations behind Machine Learning and implement your first ML algorithm without using Scikit-learn.
+
+By the end of today, you should be able to:
+
+- Understand scalars, vectors and matrices.
+- Perform vector and matrix operations using NumPy.
+- Understand the intuition behind Linear Regression.
+- Understand weights, bias and predictions.
+- Understand loss functions and Mean Squared Error.
+- Understand gradients and Gradient Descent.
+- Implement Linear Regression from scratch.
+- Visualize how a model learns.
+
+**Today's main project:** Linear Regression From Scratch.
+
+---
+
+# 2. Schedule
+
+| Task                          |    Duration |
+| ----------------------------- | ----------: |
+| Linear Algebra Fundamentals   |      45 min |
+| NumPy Implementation          |      30 min |
+| Linear Regression Theory      |      30 min |
+| Implement Gradient Descent    |      45 min |
+| Experiments and Visualization |      15 min |
+| Documentation and Revision    |      15 min |
+| **Total**                     | **180 min** |
+
+---
+
+# 3. Task 1 — Linear Algebra Fundamentals
+
+**Duration:** 45 minutes
+
+Linear Algebra is one of the most important mathematical foundations of Machine Learning.
+
+A neural network, for example, performs numerous matrix multiplications to transform input data into predictions.
+
+## 3.1 Scalars
+
+A scalar is a single numerical value.
+
+Examples:
+
+```python
+x = 5
+learning_rate = 0.01
+t
+```
