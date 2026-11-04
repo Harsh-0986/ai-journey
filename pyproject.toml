@@ -12,6 +12,7 @@ dependencies = [
 dev = [
     "ipykernel>=7.4.0",
     "jupyterlab>=4.6.5",
+    "marimo>=0.25.2",
     "matplotlib>=3.11.2",
     "pandas>=3.1.0",
 ]
