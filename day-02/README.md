@@ -1,4 +1,3 @@
-````
 # Day 4 — Optimization Algorithms
 
 **Duration:** 3 hours  
@@ -32,7 +31,7 @@ For example, in linear regression:
 
 ```text
 Loss = MSE(y_pred, y_true)
-````
+```
 
 Our objective is to find the weight and bias that minimize this loss.
 
@@ -454,5 +453,7 @@ Tomorrow, you will explore:
 - Matrix representation of linear regression.
 
 You will implement linear regression using matrix operations instead of scalar operations and prepare for neural network computations.
+
+```
 
 ```
